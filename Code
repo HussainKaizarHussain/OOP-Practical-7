@@ -1,0 +1,77 @@
+#include <iostream>
+
+using namespace std;
+
+// 1. Function Overloading Demonstration (Compile-Time Polymorphism)
+class Calculator {
+public:
+    // Function to add two integers
+    int add(int a, int b) {
+        cout << "[Function Overload] add(int, int) called\n";
+        return a + b;
+    }
+
+    // Overloaded function to add three integers
+    int add(int a, int b, int c) {
+        cout << "[Function Overload] add(int, int, int) called\n";
+        return a + b + c;
+    }
+
+    // Overloaded function to add two doubles
+    double add(double a, double b) {
+        cout << "[Function Overload] add(double, double) called\n";
+        return a + b;
+    }
+};
+
+// 2. Operator Overloading Demonstration
+class ComplexNumber {
+private:
+    double real;
+    double imag;
+
+public:
+    ComplexNumber(double r = 0.0, double i = 0.0) : real(r), imag(i) {}
+
+    // Overloading the binary '+' operator using a member function
+    ComplexNumber operator+(const ComplexNumber& other) const {
+        return ComplexNumber(real + other.real, imag + other.imag);
+    }
+
+    // Display function for complex numbers
+    void display() const {
+        cout << real << " + " << imag << "i\n";
+    }
+};
+
+int main() {
+    cout << "--- 1. Function Overloading Demo ---\n";
+    Calculator calc;
+    
+    int sum1 = calc.add(10, 20);
+    cout << "Result 1: " << sum1 << "\n\n";
+
+    int sum2 = calc.add(5, 10, 15);
+    cout << "Result 2: " << sum2 << "\n\n";
+
+    double sum3 = calc.add(5.5, 4.2);
+    cout << "Result 3: " << sum3 << "\n\n";
+
+    cout << "--- 2. Operator Overloading Demo (+) ---\n";
+    ComplexNumber c1(3.5, 2.5);
+    ComplexNumber c2(1.5, 4.0);
+
+    // Using the overloaded '+' operator to add two ComplexNumber objects
+    ComplexNumber c3 = c1 + c2; 
+
+    cout << "Complex Number 1: ";
+    c1.display();
+    
+    cout << "Complex Number 2: ";
+    c2.display();
+    
+    cout << "Sum (c1 + c2)   : ";
+    c3.display();
+
+    return 0;
+}
